@@ -17,6 +17,8 @@ title: 안전한 R
 - 안전한 R 코딩
     - [xwMOOC 데이터과학: R과 SQL - DBI, dplyr](http://statkclee.github.io/data-science/data-handling-sql.html)
     - [R 개발자가 알아야 되는 보안](http://statkclee.github.io/deep-learning/r-security.html)
+    - [`pcap` 파일](security-pcap.html)
+    - [패킷 데이터 분석(Packet Data Analysis)](security-packet.html)
 
 
 ### [xwMOOC 오픈 교재](https://statkclee.github.io/xwMOOC/)
