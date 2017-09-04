@@ -1,20 +1,6 @@
----
-layout: page
-title: xwMOOC 안전한 R
-subtitle: pcap 파일
-output:
-  html_document: 
-    keep_md: yes
-    toc: yes
-  pdf_document:
-    latex_engine: xelatex
-mainfont: NanumGothic
----
+# xwMOOC 안전한 R
  
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, quietly=TRUE)
 
-```
 
 ## 1. `pcap` 파일 합치기 [^merge-pcap]
 
@@ -24,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, quietly=TRUE)
 이런 경우 `mergecap` 명령어를 사용한다. 즉, `dhcp-capture.pcapng`, `imap-1.pcapng` 파일을 합쳐서 
 `outfile.pcapng` 출력파일로 저장하는 명령어는 다음과 같다.
 
-``` {r pcap-merge, eval=FALSE}
+
+```r
 $ mergecap -w outfile.pcapng dhcp-capture.pcapng imap-1.pcapng
 ```
