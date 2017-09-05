@@ -1,19 +1,6 @@
----
-layout: page
-title: xwMOOC 안전한 R
-subtitle: pcap 파일
-output:
-  html_document: 
-    keep_md: yes
-    toc: yes
-  pdf_document:
-    latex_engine: xelatex
-mainfont: NanumGothic
----
+# xwMOOC 안전한 R
  
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, quietly=TRUE)
-```
+
 
 ## 1. `pcap` 파일 합치고 쪼개고 [^merge-split-pcap]
 
@@ -25,7 +12,8 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, quietly=TRUE)
 이런 경우 `mergecap` 명령어를 사용한다. 즉, `dhcp-capture.pcapng`, `imap-1.pcapng` 파일을 합쳐서 
 `outfile.pcapng` 출력파일로 저장하는 명령어는 다음과 같다.
 
-``` {r pcap-merge, eval=FALSE}
+
+```r
 $ mergecap -w outfile.pcapng dhcp-capture.pcapng imap-1.pcapng
 ```
 
@@ -36,7 +24,8 @@ $ mergecap -w outfile.pcapng dhcp-capture.pcapng imap-1.pcapng
 매우 커다란 `.pcap` 파일이 패킷을 캡쳐하여 담고 있는 경우, 분석을 위해서 혹은 필요한 데이터만 끄집어 내기 위해서 `.pcap` 파일을 쪼갤 필요가 있다.
 이런 경우 `tcpdump` 명령어를 사용한다. 
 
-``` {r pcap-split, eval=FALSE}
+
+```r
 $ tcpdump -r target_file -w splitted_files -C 100
 ```
 - `-r` : 목표가 되는 크기가 큰 `.pcap` 파일
@@ -45,7 +34,8 @@ $ tcpdump -r target_file -w splitted_files -C 100
 
 다음 명령어는 `Office.pcapng` 1GB 파일을 100MB 기준으로 10조각 내게 된다. 
 
-``` {r pcap-split-office, eval=FALSE}
+
+```r
 $ tcpdump -r Office.pcapng -w office_test.pcap -C 100
 reading from file Office.pcapng, link-type E
 $ ls -alh
@@ -69,7 +59,8 @@ drwxr-xr-x 1 rstudio rstudio    0 Aug 29 07:48 ..
 
 [^install-tshark]: [How to install tshark on Ubuntu 14.10 (Utopic Unicorn)](https://www.howtoinstall.co/en/ubuntu/utopic/tshark)
 
-``` {r tshark-install, eval=FALSE}
+
+```r
 $ sudo apt-get update
 $ sudo apt-get install tshark
 ```
