@@ -15,7 +15,7 @@ mainfont: NanumGothic
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, quietly=TRUE)
 ```
 
-## 1. `pcap` 파일 합치고 쪼개고 [^merge-split-pcap]
+## 1. `pcap` 파일 합치고 쪼개고
 
 ### 1.1. `pcap` 파일 병합 [^merge-pcap]
 
@@ -65,12 +65,28 @@ drwxr-xr-x 1 rstudio rstudio    0 Aug 29 07:48 ..
 -rwxr-xr-x 1 rstudio rstudio 954M Sep  5 01:26 Office.pcapng
 ```
 
-## 2. `tshark` 설치 [^install-tshark]
+## 2. `pcap` 파일 `csv` 파일 변환 [^convert-pcap-tocsv]
+
+[^convert-pcap-tocsv]: [Export pcap data to csv: timestamp, bytes, uplink/downlink, extra info
+](https://stackoverflow.com/questions/8092380/export-pcap-data-to-csv-timestamp-bytes-uplink-downlink-extra-info)
+
+`.pcap` 파일을 데이터 분석이 가능한 `csv` 즉, 아스키 파일 형태로 변환을 해야 하는데 몇가지 방법이 있다.
+
+- [와이어샤크](https://www.wireshark.org]를 설치하고 나서, `pcap` 파일을 불러와서 `File &rarr; Export Packet Dissesctions &rarr; AS CSV` 내보내는 방법
+- 터미널에서 `tshark` 명령어를 활용하는 방법
+    - 예를 들어 `mypc.pcap` 파일을 `-r` 불러와서 필드만 추출하고 나서, `mypc.csv` 파일로 내보내서 저장한다.
+    - `tshark -r mypc.pcap -T fields -e frame.number -e eth.src -e eth.dst -e ip.src -e ip.dst -e frame.len > mypc.csv`
+- [Bro](https://www.bro.org/)를 활용 [^install-bro]
+    - Bro를 우분투에 설치하고 나서 `bro` 명령어로 간단히 아스키 파일로 변환시킨다.
+    - `bro -r mypc.pcap`
+
+[^install-bro]: [How to Install Bro on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-bro-on-ubuntu-16-04)
+
+> ### `tshark` 설치 [^install-tshark]
+> 
+> ``` {r tshark-install, eval=FALSE}
+> $ sudo apt-get update
+> $ sudo apt-get install tshark
+> ```
 
 [^install-tshark]: [How to install tshark on Ubuntu 14.10 (Utopic Unicorn)](https://www.howtoinstall.co/en/ubuntu/utopic/tshark)
-
-``` {r tshark-install, eval=FALSE}
-$ sudo apt-get update
-$ sudo apt-get install tshark
-```
-

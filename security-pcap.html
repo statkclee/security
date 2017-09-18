@@ -122,16 +122,16 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#pcap----merge-split-pcap">1. <code>pcap</code> 파일 합치고 쪼개고 [^merge-split-pcap]</a><ul>
+<li><a href="#pcap---">1. <code>pcap</code> 파일 합치고 쪼개고</a><ul>
 <li><a href="#pcap---merge-pcap">1.1. <code>pcap</code> 파일 병합 </a></li>
 <li><a href="#pcap---split-pcap">1.2. <code>pcap</code> 파일 쪼개기 </a></li>
 </ul></li>
-<li><a href="#tshark--install-tshark">2. <code>tshark</code> 설치 </a></li>
+<li><a href="#pcap--csv---convert-pcap-tocsv">2. <code>pcap</code> 파일 <code>csv</code> 파일 변환 </a></li>
 </ul>
 </div>
 
-<div id="pcap----merge-split-pcap" class="section level2">
-<h2>1. <code>pcap</code> 파일 합치고 쪼개고 [^merge-split-pcap]</h2>
+<div id="pcap---" class="section level2">
+<h2>1. <code>pcap</code> 파일 합치고 쪼개고</h2>
 <div id="pcap---merge-pcap" class="section level3">
 <h3>1.1. <code>pcap</code> 파일 병합 <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h3>
 <p>다수 <code>.pcap</code> 파일이 존재할 경우 데이터 분석을 위해서 이를 하나로 병합하는 것이 유용할 수 있다. 이런 경우 <code>mergecap</code> 명령어를 사용한다. 즉, <code>dhcp-capture.pcapng</code>, <code>imap-1.pcapng</code> 파일을 합쳐서 <code>outfile.pcapng</code> 출력파일로 저장하는 명령어는 다음과 같다.</p>
@@ -166,17 +166,36 @@ drwxr-xr-x 1 rstudio rstudio    0 Aug 29 07:48 ..
 -rwxr-xr-x 1 rstudio rstudio 954M Sep  5 01:26 Office.pcapng</code></pre>
 </div>
 </div>
-<div id="tshark--install-tshark" class="section level2">
-<h2>2. <code>tshark</code> 설치 <a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></h2>
+<div id="pcap--csv---convert-pcap-tocsv" class="section level2">
+<h2>2. <code>pcap</code> 파일 <code>csv</code> 파일 변환 <a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></h2>
+<p><code>.pcap</code> 파일을 데이터 분석이 가능한 <code>csv</code> 즉, 아스키 파일 형태로 변환을 해야 하는데 몇가지 방법이 있다.</p>
+<ul>
+<li>[와이어샤크](<a href="https://www.wireshark.org%5D를" class="uri">https://www.wireshark.org]를</a> 설치하고 나서, <code>pcap</code> 파일을 불러와서 <code>File &amp;rarr; Export Packet Dissesctions &amp;rarr; AS CSV</code> 내보내는 방법</li>
+<li>터미널에서 <code>tshark</code> 명령어를 활용하는 방법
+<ul>
+<li>예를 들어 <code>mypc.pcap</code> 파일을 <code>-r</code> 불러와서 필드만 추출하고 나서, <code>mypc.csv</code> 파일로 내보내서 저장한다.</li>
+<li><code>tshark -r mypc.pcap -T fields -e frame.number -e eth.src -e eth.dst -e ip.src -e ip.dst -e frame.len &gt; mypc.csv</code></li>
+</ul></li>
+<li><a href="https://www.bro.org/">Bro</a>를 활용 <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>
+<ul>
+<li>Bro를 우분투에 설치하고 나서 <code>bro</code> 명령어로 간단히 아스키 파일로 변환시킨다.</li>
+<li><code>bro -r mypc.pcap</code></li>
+</ul></li>
+</ul>
+<blockquote>
+<h3 id="tshark--install-tshark"><code>tshark</code> 설치 <a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></h3>
 <pre class="r"><code>$ sudo apt-get update
 $ sudo apt-get install tshark</code></pre>
+</blockquote>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p><a href="https://www.wireshark.org/docs/wsug_html_chunked/AppToolsmergecap.html">D.8. mergecap: Merging multiple capture files into one</a><a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p><a href="https://serverfault.com/questions/131872/how-to-split-a-pcap-file-into-a-set-of-smaller-ones">how to split a pcap file into a set of smaller ones</a><a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p><a href="https://www.howtoinstall.co/en/ubuntu/utopic/tshark">How to install tshark on Ubuntu 14.10 (Utopic Unicorn)</a><a href="#fnref3">↩</a></p></li>
+<li id="fn3"><p><a href="https://stackoverflow.com/questions/8092380/export-pcap-data-to-csv-timestamp-bytes-uplink-downlink-extra-info">Export pcap data to csv: timestamp, bytes, uplink/downlink, extra info</a><a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-bro-on-ubuntu-16-04">How to Install Bro on Ubuntu 16.04</a><a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p><a href="https://www.howtoinstall.co/en/ubuntu/utopic/tshark">How to install tshark on Ubuntu 14.10 (Utopic Unicorn)</a><a href="#fnref5">↩</a></p></li>
 </ol>
 </div>
 
